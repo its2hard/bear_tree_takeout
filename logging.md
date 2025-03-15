@@ -31,3 +31,15 @@
 
 ----
 
+*2025-3-15*
+
+**新增员工模块开发**
+
+- 接收JSON数据，通过*@RequestBody*转化为DTO对象，在employeeService.save中转化为Employee对象并填充剩余属性，调用employeeMapper.insert将数据插入数据库。
+
+- 补充用户名重复时的异常捕获方法
+
+- **获取当前操作人的ID**
+	- 每次请求都会被分配一个单独的线程，每个线程有单独的存储空间
+	- 通过已经被封装好的类sky-common/context/BaseContext进行线程中ID属性的设置
+	- 在JWT拦截器中setCurrentId，在需要时调用
