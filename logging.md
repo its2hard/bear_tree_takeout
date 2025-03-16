@@ -76,3 +76,38 @@ mysql中：
 
 *MappingJackson2HttpMessageConverter不要导成MappingJackson2**Cobr**HttpMessageConverter*
 后者用于处理Cobr格式的JSON数据
+
+**启用/禁用员工账号**
+
+EZ,don’t have anything to say.
+update的xml：
+
+```mysql
+    <update id="update">
+        update employee
+        <set>
+            <if test="name != null">name = #{name}</if>
+            <if test="username != null">username = #{username}</if>
+            <if test="password != null">password = #{password}</if>
+            <if test="phone != null">phone = #{phone}</if>
+            <if test="sex != null">sex = #{sex}</if>
+            <if test="idNumber != null">id_Number = #{idNumber}</if>
+            <if test="updateTime != null">update_Time = #{updateTime}</if>
+            <if test="updateUser != null">update_User = #{updateUser}</if>
+            <if test="status != null">status = #{status}</if>
+        </set>
+        where id = #{id}
+    </update>
+```
+
+**编辑员工信息**
+
+- 员工信息回显 EZ
+- 修改员工信息 EZ2 json->实体类employeeDTO->employee
+
+**导入分类管理功能**
+
+只是导入
+
+
+
