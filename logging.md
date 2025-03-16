@@ -43,3 +43,36 @@
 	- 每次请求都会被分配一个单独的线程，每个线程有单独的存储空间
 	- 通过已经被封装好的类sky-common/context/BaseContext进行线程中ID属性的设置
 	- 在JWT拦截器中setCurrentId，在需要时调用
+
+----
+
+*2025-3-16*
+
+**员工分页查询模块开发**
+
+mysql中：
+
+```mysql
+<if test="name != null and name != ''"> 
+#检查 name 不是 null 且不等于空字符串 ""。
+<if test="name != null and name != ' '"> 
+#检查 name 不是 null 且不等于单个空格字符 " "。
+```
+
+设置消息转换器
+
+```java
+ @Override
+    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        log.info("扩展消息转换器");
+        //创建消息转换器对象
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        //为消息转换器设置对象转换器，将java对象转换为json数据
+        converter.setObjectMapper(new JacksonObjectMapper());
+        //将教习转换器加入容器中
+        converters.add(0,converter);
+    }
+```
+
+*MappingJackson2HttpMessageConverter不要导成MappingJackson2**Cobr**HttpMessageConverter*
+后者用于处理Cobr格式的JSON数据
