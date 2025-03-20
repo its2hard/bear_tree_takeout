@@ -127,7 +127,38 @@ update的xml：
 
 **新增菜品**
 
-文件上传模块
+文件上传模块：阿里云
+
+----
+
+*2025-3-20*
+
+**新增菜品**
+
+其他部分
+
+```mysql
+ <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+```
+
+*useGeneratedKeys* 用来表示 *允许JDBC支持自动生成主键*，好在
+
+```java
+		//向菜品表插入一条数据
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO,dish);
+        dishMapper.insert(dish);
+        Long dishId = dish.getId();
+        //向口味表插入N条数据
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if(flavors!=null&& !flavors.isEmpty()){
+            flavors.forEach(df->{
+                df.setDishId(dishId);
+            });
+            dishFlavorMapper.insertbatch(flavors);
+        }
+```
+
 
 
 
