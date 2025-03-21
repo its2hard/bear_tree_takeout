@@ -141,7 +141,7 @@ update的xml：
  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
 ```
 
-*useGeneratedKeys* 用来表示 *允许JDBC支持自动生成主键*，好在
+*useGeneratedKeys* 用来表示 *允许JDBC支持自动生成主键*，好在之后提取
 
 ```java
 		//向菜品表插入一条数据
@@ -158,6 +158,20 @@ update的xml：
             dishFlavorMapper.insertbatch(flavors);
         }
 ```
+
+----
+
+*2025-3-21*
+
+**菜品分页查询**
+
+```mysql
+select d.*,c.name as categoryName from dish d left outer join category c on d.categoryId = c.id
+```
+
+ps:通过类名 `DishMapper` 调用一个非静态方法 `pageQuary`。在 Java 中，非静态方法必须通过对象实例来调用，而不能通过类名直接调用。需要通过声明DishMapper对象dishMapper调用
+
+**删除菜品**
 
 
 
