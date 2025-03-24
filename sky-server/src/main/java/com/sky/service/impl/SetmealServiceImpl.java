@@ -6,9 +6,12 @@ import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
 import com.sky.exception.DeletionNotAllowedException;
+import com.sky.exception.SetmealEnableFailedException;
+import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
@@ -32,6 +35,27 @@ public class SetmealServiceImpl implements SetmealService {
     private SetmealMapper setmealMapper;
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private DishMapper dishMapper;
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        if(status == StatusConstant.DISABLE){
+            List<Dish> list= dishMapper.getBySetmealId(id);
+            if(list !=null&&!list.isEmpty()){
+                list.forEach(l->{
+                    if(l.getStatus() == StatusConstant.ENABLE){
+                        throw new SetmealEnableFailedException(MessageConstant.SETMEAL_ENABLE_FAILED);
+                    }
+                });
+            }
+            Setmeal setmeal = Setmeal.builder()
+                    .id(id)
+                    .status(status)
+                    .build();
+            setmealMapper.update(setmeal);
+        }
+    }
+
     @Override
     @Transactional
     public void saveWithDish(SetmealDTO setmealDTO) {

@@ -130,4 +130,13 @@ public class DishServiceImpl implements DishService {
         List<Dish> list = dishMapper.list(dish);
         return list;
     }
+
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+        dishMapper.update(dish);
+    }
 }

@@ -9,6 +9,13 @@ import java.util.List;
 
 public interface SetmealService {
     /**
+     * 启用或停用套餐
+     * @param status
+     * @param id
+     */
+    void startOrStop(Integer status, Long id);
+
+    /**
      * 新增套餐
      * @param setmealDTO
      */
