@@ -11,3 +11,7 @@ sky:
     access-key-id: LTAI5tN1sE75J3ZP1ZznYZAK
     access-key-secret: VwsudPawi373SbLV2xC7Nx5Yn2MOcZ
     bucket-name: bear-tree-cast
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
