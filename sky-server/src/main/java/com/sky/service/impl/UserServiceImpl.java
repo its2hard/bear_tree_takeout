@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User wxlogin(UserLoginDTO userLoginDTO) {
         //获得微信用户openid
-        String openid = getOpenid(userLoginDTO.getCode());
 
+        String openid = getOpenid(userLoginDTO.getCode());
         if(openid == null){
             throw new LoginFailedException(MessageConstant.LOGIN_FAILED);
         }
